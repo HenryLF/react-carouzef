@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, TouchEvent } from "react";
+import { ReactElement, ReactNode, TouchEvent, DragEvent } from "react";
 export declare function incrementIndexSafe(value: number, count: number, max: number, modular: boolean): number;
 export declare function getIndexSafe(value: number, max: number, modular: boolean): number;
 export declare function indexDistance(value: number, target: number, max: number, modular: boolean): number;
@@ -28,8 +28,11 @@ interface NavigationOptions {
 }
 export declare function useNavigation({ onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown, onKeysUp: keyboardNavigation, swipeThreshold, keyboardEventThrottle, }: NavigationOptions): {
     onTouchStart: (e: TouchEvent) => void;
-    onTouchMove: (e: TouchEvent) => Touch;
+    onTouchMove: (e: TouchEvent) => void;
     onTouchEnd: () => void;
+    onDragStartCapture: (e: DragEvent) => void;
+    onDragEndCapture: (e: DragEvent) => void;
+    draggable: boolean;
 };
 export {};
 //# sourceMappingURL=utils.d.ts.map

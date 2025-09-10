@@ -5,7 +5,9 @@ import {
   ReactNode,
   useRef,
   TouchEvent,
+  MouseEvent,
   useEffect,
+  DragEvent,
 } from "react";
 
 export function incrementIndexSafe(
@@ -131,8 +133,8 @@ export function useNavigation({
   swipeThreshold,
   keyboardEventThrottle,
 }: NavigationOptions) {
-  const touchStart = useRef<Touch>(null);
-  const touchEnd = useRef<Touch>(null);
+  const posStart = useRef<{ clientX: number; clientY: number } | null>(null);
+  const posEnd = useRef<{ clientX: number; clientY: number } | null>(null);
 
   const threshold = swipeThreshold;
 
@@ -144,24 +146,18 @@ export function useNavigation({
     }
   };
 
+  /* key events */
   useEffect(() => {
     const handle = throttle(onKeyUp, keyboardEventThrottle);
     window.addEventListener("keyup", handle);
     return () => window.removeEventListener("keyup", handle);
   }, []);
 
-  const onTouchStart = (e: TouchEvent) => {
-    touchEnd.current = e.nativeEvent.targetTouches[0];
-    touchStart.current = e.nativeEvent.targetTouches[0];
-  };
+  const resolveSwipeMotion = () => {
+    if (!posEnd.current || !posStart.current) return;
+    const distanceX = posEnd.current.clientX - posStart.current.clientX;
 
-  const onTouchMove = (e: TouchEvent) =>
-    (touchEnd.current = e.nativeEvent.targetTouches[0]);
-
-  const onTouchEnd = () => {
-    if (!touchStart.current || !touchEnd.current) return;
-    const distanceX = touchEnd.current.clientX - touchStart.current.clientX;
-    const distanceY = touchEnd.current.clientY - touchStart.current.clientY;
+    const distanceY = posEnd.current.clientY - posStart.current.clientY;
     if (distanceX > threshold) {
       onSwipeRight();
     }
@@ -174,11 +170,53 @@ export function useNavigation({
     if (distanceY < -threshold) {
       onSwipeUp();
     }
+    posEnd.current = null;
+    posStart.current = null;
+  };
+  /* touch events */
+  const onTouchStart = (e: TouchEvent) => {
+    const { clientX, clientY } = e.nativeEvent.targetTouches[0];
+    posStart.current = { clientX, clientY };
+    posEnd.current = { clientX, clientY };
+  };
+
+  const onTouchMove = (e: TouchEvent) => {
+    if (!posEnd.current) return;
+    const { clientX, clientY } = e.nativeEvent.targetTouches[0];
+    posEnd.current = { clientX, clientY };
+  };
+
+  const onDragStartCapture = (e: DragEvent) => {
+    const { clientX, clientY } = e;
+    posStart.current = { clientX, clientY };
+    posEnd.current = { clientX, clientY };
+    removeDefaultDragImage(e);
+    e.stopPropagation();
+  };
+
+  const onDragEndCapture = (e: DragEvent) => {
+    const { clientX, clientY } = e;
+    posEnd.current = { clientX, clientY };
+    resolveSwipeMotion();
   };
 
   return {
     onTouchStart,
     onTouchMove,
-    onTouchEnd,
+    onTouchEnd: resolveSwipeMotion,
+    onDragStartCapture,
+    onDragEndCapture,
+    draggable: true,
   };
+}
+
+function removeDefaultDragImage(e: DragEvent) {
+  const dragImage = new Image();
+  dragImage.src =
+    "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+  e.dataTransfer.setDragImage(dragImage, 0, 0);
+  e.dataTransfer.effectAllowed = "none";
+  if (e.dataTransfer.types.length === 0) {
+    e.dataTransfer.setData("text/plain", "");
+  }
 }

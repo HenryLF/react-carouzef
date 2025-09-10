@@ -139,7 +139,9 @@ export function Carouzef({
 
   const numberOfItems = Children.count(itemArray);
 
-  const autoPlayConfig : typeof defaultAutoPlayConfig = { ...defaultAutoPlayConfig };
+  const autoPlayConfig: typeof defaultAutoPlayConfig = {
+    ...defaultAutoPlayConfig,
+  };
   if (autoPlay) {
     switch (typeof autoPlay) {
       case "number":
