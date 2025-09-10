@@ -36,6 +36,7 @@ export interface AutoPlayConfig {
     step?: number;
     stopOnHover?: boolean;
     reverse?: boolean;
+    interactionDelay?: number;
 }
 export declare function Carouzef({ children, startingItem, itemsPerView, loop, autoPlay, cssStyle, changeItemOnClick, swipeThreshold, keyboardEventThrottle, keyboardNavigation, axis, }: CarouzefProps): import("react/jsx-runtime").JSX.Element;
 export {};

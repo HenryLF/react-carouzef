@@ -102,12 +102,14 @@ export interface AutoPlayConfig {
   step?: number;
   stopOnHover?: boolean;
   reverse?: boolean;
+  interactionDelay?: number;
 }
-const defaultAutoPlayConfig: AutoPlayConfig = {
-  interval: 3000,
+const defaultAutoPlayConfig = {
+  interval: 5000,
   step: 1,
   stopOnHover: true,
   reverse: false,
+  interactionDelay: 5000,
 };
 
 export function Carouzef({
@@ -137,7 +139,7 @@ export function Carouzef({
 
   const numberOfItems = Children.count(itemArray);
 
-  const autoPlayConfig = { ...defaultAutoPlayConfig };
+  const autoPlayConfig : typeof defaultAutoPlayConfig = { ...defaultAutoPlayConfig };
   if (autoPlay) {
     switch (typeof autoPlay) {
       case "number":
@@ -163,34 +165,31 @@ export function Carouzef({
     ...cssStyle,
   } as CSSProperties;
 
-  const autoPlayPaused = useRef(false);
+  /* ref to track autoplay play/pause */
+  const autoPlayPausedUntil = useRef(0);
+  const mouseOver = useRef(false);
+
+  const pauseAutoplay = useCallback(() => {
+    autoPlayPausedUntil.current = Date.now() + autoPlayConfig.interactionDelay;
+  }, [autoPlayPausedUntil]);
+
+  const [value, setValue] = useReducer(reducerFunction, initialState);
 
   const setIndex = useCallback(
     (arg: number) => {
-      if (autoPlay) {
-        autoPlayPaused.current = true;
-        setTimeout(() => {
-          autoPlayPaused.current = true;
-        }, autoPlayConfig.interval);
-      }
+      pauseAutoplay();
       setValue({ type: ActionType.SET, arg });
     },
-    [autoPlay]
-  );
-  const incrementIndex = useCallback(
-    (arg: number) => {
-      if (autoPlay) {
-        autoPlayPaused.current = true;
-        setTimeout(() => {
-          autoPlayPaused.current = true;
-        }, autoPlayConfig.interval);
-      }
-      setValue({ type: ActionType.INCR, arg });
-    },
-    [autoPlay]
+    [pauseAutoplay]
   );
 
-  const [value, setValue] = useReducer(reducerFunction, initialState);
+  const incrementIndex = useCallback(
+    (arg: number) => {
+      pauseAutoplay();
+      setValue({ type: ActionType.INCR, arg });
+    },
+    [pauseAutoplay]
+  );
 
   const verticalAxis = axis == "vertical";
   const onKeysUp: Record<string, () => void> = {};
@@ -213,10 +212,20 @@ export function Carouzef({
 
   useEffect(() => {
     const cleanUp = [() => {}];
-    if (autoPlay && autoPlayConfig) {
+    if (autoPlay) {
       const interval = setInterval(() => {
-        if (autoPlayConfig.step && !autoPlayPaused.current)
-          incrementIndex(autoPlayConfig.reverse ? -1 : 1);
+        console.log(
+          autoPlayPausedUntil.current,
+          Date.now() < autoPlayPausedUntil.current,
+          mouseOver.current
+        );
+        if (Date.now() < autoPlayPausedUntil.current || mouseOver.current) {
+          return;
+        }
+        setValue({
+          type: ActionType.INCR,
+          arg: autoPlayConfig.reverse ? -1 : 1,
+        });
       }, autoPlayConfig.interval);
       cleanUp.push(() => {
         clearInterval(interval);
@@ -224,6 +233,7 @@ export function Carouzef({
     }
     return () => cleanUp.forEach((e) => e());
   }, [autoPlay]);
+
   return (
     <div className="carousel-wrapper">
       <CarouzefContextComp.Provider
@@ -236,8 +246,15 @@ export function Carouzef({
         <div
           style={style}
           {...navigationHandles}
-          onMouseEnter={() => (autoPlayPaused.current = true)}
-          onMouseLeave={() => (autoPlayPaused.current = false)}
+          onMouseEnter={() => {
+            if (autoPlayConfig.stopOnHover) mouseOver.current = true;
+          }}
+          onMouseLeave={() => {
+            if (autoPlayConfig.stopOnHover) {
+              pauseAutoplay();
+              mouseOver.current = false;
+            }
+          }}
           className="carousel-container"
         >
           {Children.map(itemArray, (child, id) => (
