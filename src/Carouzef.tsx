@@ -214,11 +214,6 @@ export function Carouzef({
     const cleanUp = [() => {}];
     if (autoPlay) {
       const interval = setInterval(() => {
-        console.log(
-          autoPlayPausedUntil.current,
-          Date.now() < autoPlayPausedUntil.current,
-          mouseOver.current
-        );
         if (Date.now() < autoPlayPausedUntil.current || mouseOver.current) {
           return;
         }
