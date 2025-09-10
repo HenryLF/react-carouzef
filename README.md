@@ -2,7 +2,7 @@
 
 ![Carouzef Preview](gif/default.gif)
 
-If you know CSS and don't want or **need** to go through the hassle of setting up Swiper.js.
+A simple carousel, the components handle the indexing logic, you just have to provide CSS.
 
 ## Features
 
