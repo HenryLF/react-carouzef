@@ -1,9 +1,17 @@
-/* node_modules/react-carouzef/dist/base.css */
+/* ../dist/base.css */
+.carousel-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 .carousel-container {
   --items-per-view: 3;
   position: relative;
   overflow-x: hidden;
   overflow-y: clip;
+  width: 100%;
+  height: 100%;
   flex: 1;
 }
 .carousel-item {
@@ -19,13 +27,13 @@
   height: var(--height);
 }
 
-/* node_modules/react-carouzef/dist/css/throw.css */
+/* ../dist/css/throw.css */
 .carousel-container {
   flex: 1;
   --spin: 360deg;
   --scale: .85;
-  --translateX: 85%;
-  --translateY: -50%;
+  --translateX: 100%;
+  --translateY: 0%;
 }
 .carousel-item {
   display: flex;

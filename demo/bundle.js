@@ -26,9 +26,9 @@
     mod
   ));
 
-  // node_modules/scheduler/cjs/scheduler.development.js
+  // ../node_modules/scheduler/cjs/scheduler.development.js
   var require_scheduler_development = __commonJS({
-    "node_modules/scheduler/cjs/scheduler.development.js"(exports) {
+    "../node_modules/scheduler/cjs/scheduler.development.js"(exports) {
       "use strict";
       (function() {
         function performWorkUntilDeadline() {
@@ -116,9 +116,9 @@
           }
           return first;
         }
-        function compare(a, b2) {
-          var diff = a.sortIndex - b2.sortIndex;
-          return 0 !== diff ? diff : a.id - b2.id;
+        function compare(a, b) {
+          var diff = a.sortIndex - b.sortIndex;
+          return 0 !== diff ? diff : a.id - b.id;
         }
         function advanceTimers(currentTime) {
           for (var timer = peek(timerQueue); null !== timer; ) {
@@ -285,9 +285,9 @@
     }
   });
 
-  // node_modules/scheduler/index.js
+  // ../node_modules/scheduler/index.js
   var require_scheduler = __commonJS({
-    "node_modules/scheduler/index.js"(exports, module) {
+    "../node_modules/scheduler/index.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -297,9 +297,9 @@
     }
   });
 
-  // node_modules/react/cjs/react.development.js
+  // ../node_modules/react/cjs/react.development.js
   var require_react_development = __commonJS({
-    "node_modules/react/cjs/react.development.js"(exports, module) {
+    "../node_modules/react/cjs/react.development.js"(exports, module) {
       "use strict";
       (function() {
         function defineDeprecationWarning(methodName, info) {
@@ -405,7 +405,7 @@
                 type = type._init;
                 try {
                   return getComponentNameFromType(type(innerType));
-                } catch (x) {
+                } catch (x2) {
                 }
             }
           return null;
@@ -417,7 +417,7 @@
           try {
             var name = getComponentNameFromType(type);
             return name ? "<" + name + ">" : "<...>";
-          } catch (x) {
+          } catch (x2) {
             return "<...>";
           }
         }
@@ -1240,9 +1240,9 @@
     }
   });
 
-  // node_modules/react/index.js
+  // ../node_modules/react/index.js
   var require_react = __commonJS({
-    "node_modules/react/index.js"(exports, module) {
+    "../node_modules/react/index.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -1252,9 +1252,9 @@
     }
   });
 
-  // node_modules/react-dom/cjs/react-dom.development.js
+  // ../node_modules/react-dom/cjs/react-dom.development.js
   var require_react_dom_development = __commonJS({
-    "node_modules/react-dom/cjs/react-dom.development.js"(exports) {
+    "../node_modules/react-dom/cjs/react-dom.development.js"(exports) {
       "use strict";
       (function() {
         function noop() {
@@ -1496,9 +1496,9 @@
     }
   });
 
-  // node_modules/react-dom/index.js
+  // ../node_modules/react-dom/index.js
   var require_react_dom = __commonJS({
-    "node_modules/react-dom/index.js"(exports, module) {
+    "../node_modules/react-dom/index.js"(exports, module) {
       "use strict";
       if (false) {
         checkDCE();
@@ -1509,9 +1509,9 @@
     }
   });
 
-  // node_modules/react-dom/cjs/react-dom-client.development.js
+  // ../node_modules/react-dom/cjs/react-dom-client.development.js
   var require_react_dom_client_development = __commonJS({
-    "node_modules/react-dom/cjs/react-dom-client.development.js"(exports) {
+    "../node_modules/react-dom/cjs/react-dom-client.development.js"(exports) {
       "use strict";
       (function() {
         function findHook(fiber, id) {
@@ -1639,14 +1639,14 @@
               throw Error("Unable to find node on an unmounted component.");
             return alternate !== fiber ? null : fiber;
           }
-          for (var a = fiber, b2 = alternate; ; ) {
+          for (var a = fiber, b = alternate; ; ) {
             var parentA = a.return;
             if (null === parentA) break;
             var parentB = parentA.alternate;
             if (null === parentB) {
-              b2 = parentA.return;
-              if (null !== b2) {
-                a = b2;
+              b = parentA.return;
+              if (null !== b) {
+                a = b;
                 continue;
               }
               break;
@@ -1654,23 +1654,23 @@
             if (parentA.child === parentB.child) {
               for (parentB = parentA.child; parentB; ) {
                 if (parentB === a) return assertIsMounted(parentA), fiber;
-                if (parentB === b2) return assertIsMounted(parentA), alternate;
+                if (parentB === b) return assertIsMounted(parentA), alternate;
                 parentB = parentB.sibling;
               }
               throw Error("Unable to find node on an unmounted component.");
             }
-            if (a.return !== b2.return) a = parentA, b2 = parentB;
+            if (a.return !== b.return) a = parentA, b = parentB;
             else {
               for (var didFindChild = false, _child = parentA.child; _child; ) {
                 if (_child === a) {
                   didFindChild = true;
                   a = parentA;
-                  b2 = parentB;
+                  b = parentB;
                   break;
                 }
-                if (_child === b2) {
+                if (_child === b) {
                   didFindChild = true;
-                  b2 = parentA;
+                  b = parentA;
                   a = parentB;
                   break;
                 }
@@ -1681,12 +1681,12 @@
                   if (_child === a) {
                     didFindChild = true;
                     a = parentB;
-                    b2 = parentA;
+                    b = parentA;
                     break;
                   }
-                  if (_child === b2) {
+                  if (_child === b) {
                     didFindChild = true;
-                    b2 = parentB;
+                    b = parentB;
                     a = parentA;
                     break;
                   }
@@ -1698,7 +1698,7 @@
                   );
               }
             }
-            if (a.alternate !== b2)
+            if (a.alternate !== b)
               throw Error(
                 "Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue."
               );
@@ -1764,7 +1764,7 @@
                 type = type._init;
                 try {
                   return getComponentNameFromType(type(innerType));
-                } catch (x) {
+                } catch (x2) {
                 }
             }
           return null;
@@ -1995,9 +1995,9 @@
         function markStateUpdateScheduled(fiber, lane) {
           null !== injectedProfilingHooks && "function" === typeof injectedProfilingHooks.markStateUpdateScheduled && injectedProfilingHooks.markStateUpdateScheduled(fiber, lane);
         }
-        function clz32Fallback(x) {
-          x >>>= 0;
-          return 0 === x ? 32 : 31 - (log(x) / LN2 | 0) | 0;
+        function clz32Fallback(x2) {
+          x2 >>>= 0;
+          return 0 === x2 ? 32 : 31 - (log(x2) / LN2 | 0) | 0;
         }
         function getLabelForLane(lane) {
           if (lane & 1) return "SyncHydrationLane";
@@ -2472,10 +2472,10 @@
           if (void 0 === prefix)
             try {
               throw Error();
-            } catch (x) {
-              var match = x.stack.trim().match(/\n( *(at )?)/);
+            } catch (x2) {
+              var match = x2.stack.trim().match(/\n( *(at )?)/);
               prefix = match && match[1] || "";
-              suffix = -1 < x.stack.indexOf("\n    at") ? " (<anonymous>)" : -1 < x.stack.indexOf("@") ? "@unknown:0:0" : "";
+              suffix = -1 < x2.stack.indexOf("\n    at") ? " (<anonymous>)" : -1 < x2.stack.indexOf("@") ? "@unknown:0:0" : "";
             }
           return "\n" + prefix + name + suffix;
         }
@@ -2506,8 +2506,8 @@
                     if ("object" === typeof Reflect && Reflect.construct) {
                       try {
                         Reflect.construct(Fake, []);
-                      } catch (x) {
-                        var control = x;
+                      } catch (x2) {
+                        var control = x2;
                       }
                       Reflect.construct(fn, [], Fake);
                     } else {
@@ -2646,8 +2646,8 @@
               workInProgress2 = workInProgress2.return;
             } while (workInProgress2);
             return info;
-          } catch (x) {
-            return "\nError generating stack: " + x.message + "\n" + x.stack;
+          } catch (x2) {
+            return "\nError generating stack: " + x2.message + "\n" + x2.stack;
           }
         }
         function describeFunctionComponentFrameWithoutLineNumber(fn) {
@@ -2703,8 +2703,8 @@
                 (workInProgress2 = workInProgress2.owner) && ownerStack && (info += "\n" + formatOwnerStack(ownerStack));
               } else break;
             var JSCompiler_inline_result = info;
-          } catch (x) {
-            JSCompiler_inline_result = "\nError generating stack: " + x.message + "\n" + x.stack;
+          } catch (x2) {
+            JSCompiler_inline_result = "\nError generating stack: " + x2.message + "\n" + x2.stack;
           }
           return JSCompiler_inline_result;
         }
@@ -3207,7 +3207,7 @@
         function describeDiff(rootNode) {
           try {
             return "\n\n" + describeNode(rootNode, 0);
-          } catch (x) {
+          } catch (x2) {
             return "";
           }
         }
@@ -3436,7 +3436,7 @@
           node.textContent = text;
         }
         function camelize(string) {
-          return string.replace(hyphenPattern, function(_2, character) {
+          return string.replace(hyphenPattern, function(_, character) {
             return character.toUpperCase();
           });
         }
@@ -3851,8 +3851,8 @@
             }
           }
         }
-        function batchedUpdates$1(fn, a, b2) {
-          if (isInsideEventHandler) return fn(a, b2);
+        function batchedUpdates$1(fn, a, b) {
+          if (isInsideEventHandler) return fn(a, b);
           isInsideEventHandler = true;
           try {
             var JSCompiler_inline_result = fn(a);
@@ -4065,8 +4065,8 @@
           if ("input" === domEventName || "change" === domEventName)
             return getInstIfValueChanged(targetInst);
         }
-        function is(x, y) {
-          return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
+        function is(x2, y) {
+          return x2 === y && (0 !== x2 || 1 / x2 === 1 / y) || x2 !== x2 && y !== y;
         }
         function shallowEqual(objA, objB) {
           if (objectIs(objA, objB)) return true;
@@ -6135,9 +6135,9 @@
           if ("object" === typeof currentStateHook && null !== currentStateHook && "function" === typeof currentStateHook.then)
             try {
               var state = useThenable(currentStateHook);
-            } catch (x) {
-              if (x === SuspenseException) throw SuspenseActionException;
-              throw x;
+            } catch (x2) {
+              if (x2 === SuspenseException) throw SuspenseActionException;
+              throw x2;
             }
           else state = currentStateHook;
           currentStateHook = updateWorkInProgressHook();
@@ -7296,9 +7296,9 @@
               );
               thenableState = null;
               return firstChildFiber;
-            } catch (x) {
-              if (x === SuspenseException || x === SuspenseActionException) throw x;
-              var fiber = createFiber(29, x, null, returnFiber.mode);
+            } catch (x2) {
+              if (x2 === SuspenseException || x2 === SuspenseActionException) throw x2;
+              var fiber = createFiber(29, x2, null, returnFiber.mode);
               fiber.lanes = lanes;
               fiber.return = returnFiber;
               var debugInfo = fiber._debugInfo = currentDebugInfo;
@@ -19299,9 +19299,9 @@
     }
   });
 
-  // node_modules/react-dom/client.js
+  // ../node_modules/react-dom/client.js
   var require_client = __commonJS({
-    "node_modules/react-dom/client.js"(exports, module) {
+    "../node_modules/react-dom/client.js"(exports, module) {
       "use strict";
       if (false) {
         checkDCE();
@@ -19312,9 +19312,9 @@
     }
   });
 
-  // node_modules/react/cjs/react-jsx-runtime.development.js
+  // ../node_modules/react/cjs/react-jsx-runtime.development.js
   var require_react_jsx_runtime_development = __commonJS({
-    "node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
+    "../node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
       "use strict";
       (function() {
         function getComponentNameFromType(type) {
@@ -19358,7 +19358,7 @@
                 type = type._init;
                 try {
                   return getComponentNameFromType(type(innerType));
-                } catch (x) {
+                } catch (x2) {
                 }
             }
           return null;
@@ -19392,7 +19392,7 @@
           try {
             var name = getComponentNameFromType(type);
             return name ? "<" + name + ">" : "<...>";
-          } catch (x) {
+          } catch (x2) {
             return "<...>";
           }
         }
@@ -19487,8 +19487,8 @@
             else validateChildKeys(children);
           if (hasOwnProperty.call(config, "key")) {
             children = getComponentNameFromType(type);
-            var keys = Object.keys(config).filter(function(k2) {
-              return "key" !== k2;
+            var keys = Object.keys(config).filter(function(k) {
+              return "key" !== k;
             });
             isStaticChildren = 0 < keys.length ? "{key: someKey, " + keys.join(": ..., ") + ": ...}" : "{key: someKey}";
             didWarnAboutKeySpread[children + isStaticChildren] || (keys = 0 < keys.length ? "{" + keys.join(": ..., ") + ": ...}" : "{}", console.error(
@@ -19574,9 +19574,9 @@
     }
   });
 
-  // node_modules/react/jsx-runtime.js
+  // ../node_modules/react/jsx-runtime.js
   var require_jsx_runtime = __commonJS({
-    "node_modules/react/jsx-runtime.js"(exports, module) {
+    "../node_modules/react/jsx-runtime.js"(exports, module) {
       "use strict";
       if (false) {
         module.exports = null;
@@ -19589,129 +19589,161 @@
   // src/index.tsx
   var import_client = __toESM(require_client());
 
-  // node_modules/react-carouzef/dist/index.esm.js
+  // ../dist/index.esm.js
   var import_react = __toESM(require_react());
   var import_react2 = __toESM(require_react());
+  var import_react3 = __toESM(require_react());
   var import_jsx_runtime = __toESM(require_jsx_runtime());
-  function P(e, o, t, r) {
-    return r ? (t + e + o) % t : Math.max(Math.min(o + e, t - 1), 0);
+  function L(e, t, n, r) {
+    return r ? (n + e + t) % n : Math.max(Math.min(t + e, n - 1), 0);
   }
-  function g(e, o, t) {
-    return t ? (e + o) % o : Math.min(o - 1, Math.max(0, e));
+  function D(e, t, n) {
+    return n ? (e + t) % t : Math.min(t - 1, Math.max(0, e));
   }
-  function z(e, o, t, r) {
-    if (!r) return e - o;
-    let n = e - o, u = n > 0 ? n - t : n + t;
-    return Math.abs(n) < Math.abs(u) ? n : u;
+  function X(e, t, n, r) {
+    if (!r) return e - t;
+    let o = e - t, f = o > 0 ? o - n : o + n;
+    return Math.abs(o) < Math.abs(f) ? o : f;
   }
-  function A(e, o) {
-    let t = { activeChilds: [], inactiveChilds: [] };
-    return import_react2.Children.forEach(e, (r) => {
-      if ((0, import_react2.isValidElement)(r)) {
-        let { className: n } = r.props;
-        n?.includes(o) ? t.inactiveChilds.push(r) : t.activeChilds.push(r);
+  function H(e, t) {
+    let n = { activeChilds: [], inactiveChilds: [] };
+    return import_react3.Children.forEach(e, (r) => {
+      if ((0, import_react3.isValidElement)(r)) {
+        let { className: o } = r.props;
+        o?.includes(t) ? n.inactiveChilds.push(r) : n.activeChilds.push(r);
       }
-    }), t;
+    }), n;
   }
-  function N(e, o) {
-    let t = import_react2.Children.count(e);
-    if (!t) return [];
-    let r = import_react2.Children.toArray(e), n = Math.max(o * 2, 3);
-    for (; r.length < n; ) r = [...r, ...r.slice(0, t)];
+  function F(e, t) {
+    let n = import_react3.Children.count(e);
+    if (!n) return [];
+    let r = import_react3.Children.toArray(e), o = Math.max(t * 2, 3);
+    for (; r.length <= o; ) r = [...r, ...r.slice(0, n)];
     return r;
   }
-  function k(e, o) {
-    return e === 0 ? "active" : e === -1 ? "prev" : e === 1 ? "next" : Math.abs(e) > o / 2 + 1 ? "hidden" : e < 0 ? "before" : "after";
+  function Y(e, t) {
+    return e === 0 ? "active" : e === -1 ? "prev" : e === 1 ? "next" : Math.abs(e) > t / 2 + 1 ? "hidden" : e < 0 ? "before" : "after";
   }
-  function $(e, o) {
-    let t = false;
+  function J(e, t) {
+    let n = false;
     return function(...r) {
-      let n = this;
-      t || (e.apply(n, r), t = true, setTimeout(() => t = false, o));
+      let o = this;
+      n || (e.apply(o, r), n = true, setTimeout(() => n = false, t));
     };
   }
-  function O({ onSwipeLeft: e, onSwipeRight: o, onSwipeUp: t, onSwipeDown: r, onKeysUp: n, swipeThreshold: u, keyboardEventThrottle: p }) {
-    let l = (0, import_react2.useRef)(null), c = (0, import_react2.useRef)(null), m = u, a = (i) => {
-      for (let h in n) i.key == h && n[h]();
+  function U({ onSwipeLeft: e, onSwipeRight: t, onSwipeUp: n, onSwipeDown: r, onKeysUp: o, swipeThreshold: f, keyboardEventThrottle: v }) {
+    let l = (0, import_react3.useRef)(null), u = (0, import_react3.useRef)(null), p = f, d = (i) => {
+      for (let s in o) i.key == s && o[s]();
     };
-    return (0, import_react2.useEffect)(() => {
-      let i = $(a, p);
+    (0, import_react3.useEffect)(() => {
+      let i = J(d, v);
       return window.addEventListener("keyup", i), () => window.removeEventListener("keyup", i);
-    }, []), { onTouchStart: (i) => {
-      c.current = i.nativeEvent.targetTouches[0], l.current = i.nativeEvent.targetTouches[0];
-    }, onTouchMove: (i) => c.current = i.nativeEvent.targetTouches[0], onTouchEnd: () => {
-      if (!l.current || !c.current) return;
-      let i = c.current.clientX - l.current.clientX, h = c.current.clientY - l.current.clientY;
-      i > m && o(), i < -m && e(), h > m && r(), h < -m && t();
-    } };
+    }, []);
+    let h = () => {
+      if (!u.current || !l.current) return;
+      let i = u.current.clientX - l.current.clientX, s = u.current.clientY - l.current.clientY;
+      i > p && t(), i < -p && e(), s > p && r(), s < -p && n(), u.current = null, l.current = null;
+    };
+    return { onTouchStart: (i) => {
+      let { clientX: s, clientY: c } = i.nativeEvent.targetTouches[0];
+      l.current = { clientX: s, clientY: c }, u.current = { clientX: s, clientY: c };
+    }, onTouchMove: (i) => {
+      if (!u.current) return;
+      let { clientX: s, clientY: c } = i.nativeEvent.targetTouches[0];
+      u.current = { clientX: s, clientY: c };
+    }, onTouchEnd: h, onDragStartCapture: (i) => {
+      let { clientX: s, clientY: c } = i;
+      l.current = { clientX: s, clientY: c }, u.current = { clientX: s, clientY: c }, Z(i), i.stopPropagation();
+    }, onDragEndCapture: (i) => {
+      let { clientX: s, clientY: c } = i;
+      u.current = { clientX: s, clientY: c }, h();
+    }, draggable: true };
   }
-  var U = (0, import_react.createContext)(null);
-  function G() {
-    return (0, import_react.useContext)(U);
+  function Z(e) {
+    let t = new Image();
+    t.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7", e.dataTransfer.setDragImage(t, 0, 0), e.dataTransfer.effectAllowed = "none", e.dataTransfer.types.length === 0 && e.dataTransfer.setData("text/plain", "");
   }
-  var K = (0, import_react.createContext)(null);
-  function J(e, { type: o, arg: t }) {
+  var W = (0, import_react2.createContext)(null);
+  function oe() {
+    return (0, import_react2.useContext)(W);
+  }
+  var $ = (0, import_react2.createContext)(null);
+  function ie(e, { type: t, arg: n }) {
     let r;
-    switch (o) {
+    switch (t) {
       case "increment_index":
-        return r = P(e.index, t, e.numberOfItems, e.loop), { ...e, index: r };
+        return r = L(e.index, n, e.numberOfItems, e.loop), { ...e, index: r };
       case "set_index":
-        return r = g(t, e.numberOfItems, e.loop), { ...e, index: r };
+        return r = D(n, e.numberOfItems, e.loop), { ...e, index: r };
       default:
         return e;
     }
   }
-  var Q = { interval: 3e3, step: 1 };
-  function de({ children: e, startingItem: o = 0, itemsPerView: t = 2, loop: r = true, autoPlay: n, cssStyle: u, changeItemOnClick: p = true, swipeThreshold: l = 50, keyboardEventThrottle: c = 500, keyboardNavigation: m = { ArrowLeft: "previous", ArrowRight: "next" }, axis: a = "horizontal" }) {
-    let [x, y, T] = (0, import_react.useMemo)(() => {
-      let { activeChilds: s, inactiveChilds: d } = A(e, "carouzef-ignore");
-      return [N(s, t), s, d];
-    }, [e, t]), i = import_react.Children.count(x), h = { index: g(o, i, r), itemsPerView: t, numberOfItems: i, realNumberOfItems: y.length, loop: r }, C = { ...Q };
-    if (n) switch (typeof n) {
+  var se = { interval: 5e3, step: 1, stopOnHover: true, reverse: false, interactionDelay: 5e3 };
+  function we({ children: e, startingItem: t = 0, itemsPerView: n = 2, loop: r = true, autoPlay: o, cssStyle: f, changeItemOnClick: v = true, swipeThreshold: l = 50, keyboardEventThrottle: u = 500, keyboardNavigation: p = { ArrowLeft: "previous", ArrowRight: "next" }, axis: d = "horizontal" }) {
+    let [h, N, z] = (0, import_react2.useMemo)(() => {
+      let { activeChilds: a, inactiveChilds: b } = H(e, "carousel-ignore");
+      return [r ? F(a, n) : a, a, b];
+    }, [e, n, r]), E = import_react2.Children.count(h), m = { ...se };
+    if (o) switch (typeof o) {
       case "number":
-        C.interval = n;
+        m.interval = o;
         break;
       case "boolean":
         break;
       default:
-        Object.assign(C, n);
+        Object.assign(m, o);
     }
-    let S = { "--items-per-view": t, ...u };
-    console.log(S);
-    let L = (0, import_react.useCallback)((s) => w({ type: "set_index", arg: s }), []), f = (0, import_react.useCallback)((s) => w({ type: "increment_index", arg: s }), []), [X, w] = (0, import_react.useReducer)(J, h), v = a == "vertical", I = {};
-    for (let s in m) m[s] == "next" ? I[s] = () => f(1) : I[s] = () => f(-1);
-    let H = O({ onSwipeLeft: v ? () => {
-    } : () => f(1), onSwipeRight: v ? () => {
-    } : () => f(-1), onSwipeUp: v ? () => f(1) : () => {
-    }, onSwipeDown: v ? () => f(-1) : () => {
-    }, onKeysUp: I, swipeThreshold: l, keyboardEventThrottle: c });
-    return (0, import_react.useEffect)(() => {
-      let s = [() => {
-      }];
-      if (n && C) {
-        let d = setInterval(() => f(1), C.interval);
-        s.push(() => {
-          clearInterval(d);
+    let i = { index: D(t, E, r), itemsPerView: n, numberOfItems: E, realNumberOfItems: N.length, loop: r }, s = { "--items-per-view": n, ...f }, c = (0, import_react.useRef)(0), A = (0, import_react.useRef)(true), y = (0, import_react.useRef)(false), g = (0, import_react2.useCallback)(() => {
+      c.current = Date.now() + m.interactionDelay;
+    }, [c]), [_, w] = (0, import_react2.useReducer)(ie, i), j = (0, import_react2.useCallback)((a) => {
+      g(), w({ type: "set_index", arg: a });
+    }, [g]), C = (0, import_react2.useCallback)((a) => {
+      g(), w({ type: "increment_index", arg: a });
+    }, [g]), I = d == "vertical", T = {};
+    for (let a in p) p[a] == "next" ? T[a] = () => C(1) : T[a] = () => C(-1);
+    let G = U({ onSwipeLeft: I ? () => {
+    } : () => C(1), onSwipeRight: I ? () => {
+    } : () => C(-1), onSwipeUp: I ? () => C(1) : () => {
+    }, onSwipeDown: I ? () => C(-1) : () => {
+    }, onKeysUp: T, swipeThreshold: l, keyboardEventThrottle: u });
+    return (0, import_react2.useEffect)(() => {
+      let a = [() => {
+      }], b = () => {
+        A.current = true;
+      }, k = () => {
+        A.current = false;
+      };
+      if (window.addEventListener("focus", b), window.addEventListener("blur", k), a.push(() => window.removeEventListener("focus", b), () => window.removeEventListener("blur", k)), o) {
+        let S = setInterval(() => {
+          Date.now() < c.current || y.current || !A.current || w({ type: "increment_index", arg: m.reverse ? -1 : 1 });
+        }, m.interval);
+        a.push(() => {
+          clearInterval(S);
         });
       }
-      return () => s.forEach((d) => d());
-    }, [n]), (0, import_jsx_runtime.jsx)("div", { style: S, ...H, className: "carousel-container", children: (0, import_jsx_runtime.jsxs)(U.Provider, { value: { setIndex: L, incrementIndex: f, ...X }, children: [import_react.Children.map(x, (s, d) => (0, import_jsx_runtime.jsx)(Z, { index: d, changeItemOnClick: p, axis: a, children: s }, d)), T] }) });
+      return () => a.forEach((S) => S());
+    }, [o]), (0, import_jsx_runtime.jsx)("div", { className: "carousel-wrapper", children: (0, import_jsx_runtime.jsxs)(W.Provider, { value: { setIndex: j, incrementIndex: C, ..._ }, children: [(0, import_jsx_runtime.jsx)("div", { style: s, ...G, onMouseEnter: () => {
+      m.stopOnHover && (y.current = true);
+    }, onMouseLeave: () => {
+      m.stopOnHover && setInterval(() => y.current = false, m.interactionDelay);
+    }, className: "carousel-container", children: import_react2.Children.map(h, (a, b) => (0, import_jsx_runtime.jsx)(ae, { index: b, changeItemOnClick: v, axis: d, children: a }, b)) }), z] }) });
   }
-  function Z({ children: e, index: o, changeItemOnClick: t, axis: r }) {
-    let n = G();
-    if (!n) return e;
-    let u = z(o, n.index, n.numberOfItems, n.loop), p = {};
-    r == "horizontal" ? p.height = "auto" : p.width = "auto";
-    let l = { "--item-index": `${o}`, "--distance-to-active": `${u}`, ...p };
-    if ((0, import_react.isValidElement)(e)) {
-      let a = e.props.cssStyle;
-      a && Object.assign(l, a);
+  function ae({ children: e, index: t, changeItemOnClick: n, axis: r }) {
+    let o = oe();
+    if (!o) return e;
+    let f = X(t, o.index, o.numberOfItems, o.loop), v = {};
+    r == "horizontal" ? v.height = "100%" : v.width = "100%";
+    let l = { "--item-index": `${t}`, "--distance-to-active": `${f}`, ...v };
+    if ((0, import_react2.isValidElement)(e)) {
+      let d = e.props.cssStyle;
+      d && Object.assign(l, d);
     }
-    let c = k(u, n.itemsPerView);
-    return (0, import_jsx_runtime.jsx)("div", { onClickCapture: t ? (a) => {
-      o != n?.index && (a.stopPropagation(), a.preventDefault(), n.setIndex(o));
+    let u = Y(f, o.itemsPerView);
+    return (0, import_jsx_runtime.jsx)("div", { onClickCapture: n ? (d) => {
+      t != o?.index && (d.stopPropagation(), d.preventDefault(), o.setIndex(t));
     } : () => {
-    }, className: `carousel-item carousel-item-${c}`, style: l, children: (0, import_jsx_runtime.jsx)(K.Provider, { value: { index: o, activeIndex: n?.index, toActiveIndex: u, position: c }, children: e }) });
+    }, className: `carousel-item carousel-item-${u}`, style: l, children: (0, import_jsx_runtime.jsx)($.Provider, { value: { index: t, activeIndex: o?.index, toActiveIndex: f, position: u }, children: e }) });
   }
 
   // src/index.tsx
@@ -19735,7 +19767,7 @@
           width: "100vw",
           height: "100vh"
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(de, { itemsPerView: 3, autoPlay: true, cssStyle: { "--translateX": "100%", "--translateY": "0%" }, children: [
+        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(we, { itemsPerView: 3, autoPlay: { interval: 1e3, interactionDelay: 5e3 }, cssStyle: { "--translateX": "100%", "--translateY": "0%" }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { ...divStyle, backgroundColor: "green" }, children: "1" }),
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { ...divStyle, backgroundColor: "blue" }, children: "2" }),
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { style: { ...divStyle, backgroundColor: "orange" }, children: "3" }),

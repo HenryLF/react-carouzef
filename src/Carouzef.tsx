@@ -169,6 +169,7 @@ export function Carouzef({
 
   /* ref to track autoplay play/pause */
   const autoPlayPausedUntil = useRef(0);
+  const tabFocused = useRef(true);
   const mouseOver = useRef(false);
 
   const pauseAutoplay = useCallback(() => {
@@ -203,20 +204,29 @@ export function Carouzef({
     }
   }
   const navigationHandles = useNavigation({
-    onSwipeLeft: !verticalAxis ? () => incrementIndex(1) : () => {},
-    onSwipeRight: !verticalAxis ? () => incrementIndex(-1) : () => {},
-    onSwipeUp: verticalAxis ? () => incrementIndex(1) : () => {},
-    onSwipeDown: verticalAxis ? () => incrementIndex(-1) : () => {},
+    onSwipeLeft: !verticalAxis ? () => incrementIndex(1) : () => { },
+    onSwipeRight: !verticalAxis ? () => incrementIndex(-1) : () => { },
+    onSwipeUp: verticalAxis ? () => incrementIndex(1) : () => { },
+    onSwipeDown: verticalAxis ? () => incrementIndex(-1) : () => { },
     onKeysUp,
     swipeThreshold,
     keyboardEventThrottle,
   });
 
   useEffect(() => {
-    const cleanUp = [() => {}];
+    const cleanUp = [() => { }];
+    const tabFocusHandle = () => {
+      tabFocused.current = true
+    }
+    const tabBlurHandle = () => {
+      tabFocused.current = false
+    }
+    window.addEventListener("focus", tabFocusHandle)
+    window.addEventListener("blur", tabBlurHandle)
+    cleanUp.push(() => window.removeEventListener("focus", tabFocusHandle), () => window.removeEventListener("blur", tabBlurHandle))
     if (autoPlay) {
       const interval = setInterval(() => {
-        if (Date.now() < autoPlayPausedUntil.current || mouseOver.current) {
+        if (Date.now() < autoPlayPausedUntil.current || mouseOver.current || !tabFocused.current) {
           return;
         }
         setValue({
@@ -248,8 +258,7 @@ export function Carouzef({
           }}
           onMouseLeave={() => {
             if (autoPlayConfig.stopOnHover) {
-              pauseAutoplay();
-              mouseOver.current = false;
+              setInterval( ()=>mouseOver.current = false , autoPlayConfig.interactionDelay)
             }
           }}
           className="carousel-container"
@@ -319,7 +328,7 @@ function Item({ children, index, changeItemOnClick, axis }: ItemProps) {
 
   return (
     <div
-      onClickCapture={changeItemOnClick ? onClickCapture : () => {}}
+      onClickCapture={changeItemOnClick ? onClickCapture : () => { }}
       className={`carousel-item carousel-item-${position}`}
       style={style}
     >

@@ -25,7 +25,7 @@ function App() {
         height: "100vh",
       }}
     >
-      <Carouzef itemsPerView={3} autoPlay={true} cssStyle={{"--translateX" : "100%" , "--translateY" : "0%"}}>
+      <Carouzef itemsPerView={3} autoPlay={{interval : 1000 , interactionDelay : 5000}} cssStyle={{"--translateX" : "100%" , "--translateY" : "0%"}}>
         <div style={{ ...divStyle, backgroundColor: "green" }}>1</div>
         <div style={{ ...divStyle, backgroundColor: "blue" }}>2</div>
         <div style={{ ...divStyle, backgroundColor: "orange" }}>3</div>

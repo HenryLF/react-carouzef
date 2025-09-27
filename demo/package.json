@@ -10,7 +10,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "react-carouzef": "^1.0.2"
   },
   "devDependencies": {
     "esbuild": "^0.25.9"
