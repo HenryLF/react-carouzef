@@ -66,7 +66,7 @@ export function duplicateChildren(children: ReactNode, itemsPerView: number) {
 
   let childArray = Children.toArray(children);
   const minItems = Math.max(itemsPerView * 2, 3);
-  while (childArray.length <= minItems) {
+  while (childArray.length < minItems) {
     childArray = [...childArray, ...childArray.slice(0, count)];
   }
   return childArray;
